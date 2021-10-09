@@ -13,18 +13,17 @@ import java.util.List;
 @Entity
 @Table(name = "autor")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Autor implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaNacimiento;
+    private String email;
 
     private static ModelMapper modelMapper = new ModelMapper();
 

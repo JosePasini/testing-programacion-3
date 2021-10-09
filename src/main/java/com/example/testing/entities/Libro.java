@@ -1,10 +1,7 @@
 package com.example.testing.entities;
 
 import com.example.testing.dto.LibroDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +12,7 @@ import org.modelmapper.ModelMapper;
 @Entity
 @Table(name = "libro")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Libro implements Serializable {
@@ -25,16 +23,10 @@ public class Libro implements Serializable {
     private String nombre;
     private String isbn;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "autor")
     private Autor autor;
-
-    @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Resenia> reseniaList = new ArrayList<>();
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "editorial")
-    private Editorial editorial;
+    
 
     private static ModelMapper modelMapper = new ModelMapper();
 

@@ -18,6 +18,10 @@ public class LibroController {
     @Autowired
     private LibroService libroService;
 
+    public LibroController(LibroService libroService) {
+        this.libroService = libroService;
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll() throws Exception{
         try{
@@ -29,12 +33,11 @@ public class LibroController {
         }
     }
 
+
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Libro libro) throws Exception{
         try{
-            System.out.println("SS");
-            System.out.println(libro);
-                return ResponseEntity.status(HttpStatus.OK).body(libroService.save(libro));
+            return ResponseEntity.status(HttpStatus.OK).body(libroService.save(libro));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error");
         }
@@ -43,7 +46,6 @@ public class LibroController {
     @PostMapping("/create-dto")
     public ResponseEntity<?> create_dto(@RequestBody LibroDto libroDto) throws Exception{
         try{
-            System.out.println("SS");
             Libro libro = Libro.mapToEntity(libroDto);
             this.libroService.save(libro);
             LibroDto libroDto1 = LibroDto.mapToDto(libro);

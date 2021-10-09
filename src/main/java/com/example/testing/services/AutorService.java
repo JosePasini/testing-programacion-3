@@ -69,14 +69,20 @@ public class AutorService {
 
 
     @Transactional
-    public boolean delete(Long id) throws Exception {
+    public boolean deleteById(Long id) throws Exception {
         try{
-            if (autorRepository.existsById(id)){
-                autorRepository.deleteById(id);
+                autorRepository.deleteAutorById(id);
                 return true;
-            } else {
-                throw new Exception();
-            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Transactional
+    public boolean deleteAutorByNombre(String nombre) throws Exception {
+        try{
+            boolean bandera = autorRepository.deleteAutorByNombre(nombre);
+            return bandera;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
