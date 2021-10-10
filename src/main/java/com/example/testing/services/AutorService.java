@@ -40,7 +40,6 @@ public class AutorService {
         }
     }
 
-
     @Transactional
     public Autor save(Autor entity) throws Exception {
         try{
@@ -67,12 +66,11 @@ public class AutorService {
         }
     }
 
-
     @Transactional
     public boolean deleteById(Long id) throws Exception {
         try{
-                autorRepository.deleteAutorById(id);
-                return true;
+            autorRepository.deleteAutorById(id);
+            return true;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
@@ -83,7 +81,7 @@ public class AutorService {
         try{
             boolean bandera = autorRepository.deleteAutorByNombre(nombre);
             return bandera;
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }

@@ -25,7 +25,6 @@ class PersonaApplicationTests {
     @Autowired
     LibroRepository libroRepository;
 
-
     @Test
     @Order(1)
     public void testCreate_autor() {
