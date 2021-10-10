@@ -22,6 +22,16 @@ public class LibroController {
         this.libroService = libroService;
     }
 
+    @GetMapping("/getOne/{id}")
+    public ResponseEntity<?> getOne(@PathVariable Long id) throws Exception{
+        try{
+            Libro libro = this.libroService.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(libro);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error");
+        }
+    }
+
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll() throws Exception{
         try{
@@ -54,5 +64,19 @@ public class LibroController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error");
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        try{
+            if(this.libroService.findById(id) != null) {
+                return ResponseEntity.status(HttpStatus.OK).body(this.libroService.delete(id));
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
+        }
+    }
+
+
 
 }

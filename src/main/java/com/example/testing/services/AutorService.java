@@ -71,8 +71,8 @@ public class AutorService {
     @Transactional
     public boolean deleteById(Long id) throws Exception {
         try{
-                autorRepository.deleteAutorById(id);
-                return true;
+            autorRepository.deleteAutorById(id);
+            return true;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

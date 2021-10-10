@@ -67,6 +67,22 @@ class LibroControllerTest {
         when(libroService.save(any(Libro.class))).thenReturn(libro2);
         ResponseEntity<?> ok = libroController.create_dto(libroDto);
         assertEquals(ok, new ResponseEntity<>(libroDto, HttpStatus.OK));
-
     }
+
+    @Test
+    void getOneTest() throws Exception {
+        when(libroService.findById(1L)).thenReturn(libro);
+        ResponseEntity<?> ok = libroController.getOne(1L);
+        assertEquals(ok, new ResponseEntity<>(libro, HttpStatus.OK));
+    }
+
+    @Test
+    void deleteByIdTest() throws Exception {
+        when(libroService.findById(1L)).thenReturn(libro);
+        when(libroService.delete(libro.getId())).thenReturn(true);
+        ResponseEntity<?> ok = libroController.delete(1L);
+        System.out.println(ok);
+        assertEquals(ok, new ResponseEntity<>(true, HttpStatus.OK));
+    }
+
 }
