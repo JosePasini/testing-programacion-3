@@ -17,8 +17,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PersonaApplicationTests {
+class TestingApplicationTests {
 
+    @Test
+    public void A(){
+        System.out.println("HOla");
+    }
+
+/*
     @Autowired
     AutorRepository autorRepository;
 
@@ -146,5 +152,5 @@ class PersonaApplicationTests {
         Assertions.assertEquals("El señor de los anillos", libroDto.getNombre());
     }
 
-
+*/
 }

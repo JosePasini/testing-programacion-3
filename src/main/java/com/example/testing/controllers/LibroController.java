@@ -43,7 +43,6 @@ public class LibroController {
         }
     }
 
-
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Libro libro) throws Exception{
         try{
@@ -77,6 +76,14 @@ public class LibroController {
         }
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Libro libro ){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(libroService.update(id, libro));
+        } catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. por favor itente nuevamente.\"}");
+        }
+    }
 
 
 }

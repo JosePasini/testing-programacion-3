@@ -23,6 +23,7 @@ public class Libro implements Serializable {
     private String nombre;
     private String isbn;
 
+    @ToString.Exclude
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "autor")
     private Autor autor;

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.OngoingStubbing;
@@ -20,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@ExtendWith(value = {MockitoExtension.class})
+@ExtendWith(MockitoExtension.class)
 class LibroServiceTest {
 
     @Mock
@@ -36,27 +35,39 @@ class LibroServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        libro = Libro.builder().id(1L).nombre("El señor de los Anillos").isbn("Z 666").autor(new Autor(1L, "PEPE LUI", "pepe@yahoo.com")).build();
-        libro2 = Libro.builder().id(2L).nombre("Harry Potter").isbn("I 468").autor(new Autor(2L, "LUCA PRODAN", " luca@gmail.com")).build();
-    }
+        libro = Libro.builder()
+                .id(1L)
+                .nombre("La casa de Bernarda Alba")
+                .isbn("BA 123")
+                .autor(new Autor(1L, "Federico García Lorca", "fgl@gmail.com"))
+                .build();
 
-    @Test
-    void findAllTest() throws Exception {
-        Mockito.when(libroService.findAll()).thenReturn(Arrays.asList(libro));
-        Assertions.assertEquals(libroService.findAll(), Arrays.asList(libro));
-        Assertions.assertNotNull(libroService.findAll());
+        libro2 = Libro.builder()
+                .id(2L)
+                .nombre("Babilonia")
+                .isbn("BB 654")
+                .autor(new Autor(2L, "Armando Discépolo", " ad@gmail.com"))
+                .build();
     }
 
     @Test
     void findByIdTest() throws Exception {
-        when(libroRepository.findById(1L)).thenReturn(Optional.ofNullable(libro));
-        Assertions.assertEquals("PEPE LUI 2",libroService.findById(1L).getNombre());
+        when(libroRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(libro));
+        Assertions.assertAll("findByIdTest", ()-> Assertions.assertEquals("La casa de Bernarda Alba", libroService.findById(1L).getNombre()),
+                ()-> Assertions.assertNotNull(libroService.findById(1L)));
+    }
+
+    @Test
+    void findAllTest() throws Exception {
+        when(libroRepository.findAll()).thenReturn(Arrays.asList(libro, libro2));
+        Assertions.assertEquals(libroService.findAll(), Arrays.asList(libro, libro2));
+        Assertions.assertNotNull(libroService.findAll());
     }
 
     @Test
     void saveTest() throws Exception {
         when(libroRepository.save(any(Libro.class))).thenReturn(libro);
-        Assertions.assertNotNull(libroService.save(new Libro()));
+        Assertions.assertNotNull(libroService.save(libro2));
     }
 
     @Test

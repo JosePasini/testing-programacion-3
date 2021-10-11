@@ -25,6 +25,10 @@ public class Autor implements Serializable {
 
     private String email;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
+    private List<Libro> libros;
+
     private static ModelMapper modelMapper = new ModelMapper();
 
     public static Autor mapToEntity(AutorDto autorDto) throws Exception{
@@ -47,5 +51,12 @@ public class Autor implements Serializable {
         }
         return autores;
     }
+
+    public Autor(Long id, String nombre, String email){
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+    }
+
 
 }

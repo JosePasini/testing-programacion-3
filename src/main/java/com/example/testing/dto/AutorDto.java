@@ -20,7 +20,9 @@ import java.util.List;
 public class AutorDto {
     private Long id;
     private String nombre;
-    private Date fechaNacimiento;
+    private String email;
+    @JsonIgnoreProperties
+    private List<Libro> libros;
 
     private static ModelMapper modelMapper = new ModelMapper();
 
